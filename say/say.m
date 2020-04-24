@@ -1,5 +1,4 @@
 #import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
 
 int main(int argc,char** argv) {
   enum {
@@ -65,18 +64,25 @@ int main(int argc,char** argv) {
   if(flags&kFlag_who){
       if (s_who==0){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Amelie-compact"];
+          printf("Voix : %f (com.apple.ttsbundle.Amelie-compact)\n", s_who);
       } else if (s_who==1){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Thomas-compact"];
+          printf("Voix : %f (com.apple.ttsbundle.Thomas-compact)\n", s_who);
+      } else if (s_who==2){
+          utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Thomas-premium"];
+          printf("Voix : %f (com.apple.ttsbundle.Thomas-premium)\n", s_who);
+      } else if (s_who==3){
+          utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.siri_male_fr-FR_compact"];
+          printf("Voix : %f (com.apple.ttsbundle.siri_male_fr-FR_compact)\n", s_who);
+      } else if (s_who==4){
+          utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.siri_female_fr-FR_compact"];
+          printf("Voix : %f (com.apple.ttsbundle.siri_female_fr-FR_compact)\n", s_who);
       }
   } else utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"fr-FR"];
 
   [synth speakUtterance:utterance];
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, 5.0, FALSE);
-    //CFRunLoopRun();
-  //[synth stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-  //CFRunLoopStop(CFRunLoopGetMain());
   printf("Rate = %f; Volume = %f; Pitch = %f;\n",s_rate,s_volume,s_pitch);
   [synth release];
   [pool drain];
 }
- 
