@@ -45,11 +45,11 @@ int main(int argc,char** argv) {
     fprintf(stderr,"E[AVAudioSession]: %s\n",error.localizedDescription.UTF8String);
   }
   NSString* string=nil;
-  if(optind!=argc-1 || strcmp(argv[optind],"-")!=0){
-    NSMutableString* buffer=[NSMutableString string];
-    for (opt=optind;opt<argc;opt++){[buffer appendFormat:@"%s ",argv[opt]];}
-    if(buffer.length){string=buffer;}
-  }
+    if(optind!=argc-1 || strcmp(argv[optind],"-")!=0){
+      NSString* buffer=[NSString string];
+      for (opt=optind;opt<argc;opt++){buffer=[NSString stringWithUTF8String:argv[opt]];}
+      if(buffer.length){string=buffer;}
+    }
   if(!string){
     string=[[[NSString alloc] initWithData:[[NSFileHandle
      fileHandleWithStandardInput] readDataToEndOfFile]
@@ -58,31 +58,35 @@ int main(int argc,char** argv) {
   AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:string];
   AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
 
+  NSString* voix=nil;
   if(flags&kFlag_rate){utterance.rate=s_rate;}
   if(flags&kFlag_volume){utterance.volume=s_volume;}
   if(flags&kFlag_pitch){utterance.pitchMultiplier=s_pitch;}
   if(flags&kFlag_who){
       if (s_who==0){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Amelie-compact"];
-          printf("Voix : %f (com.apple.ttsbundle.Amelie-compact)\n", s_who);
+          voix=@"Amelie-compact";
       } else if (s_who==1){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Thomas-compact"];
-          printf("Voix : %f (com.apple.ttsbundle.Thomas-compact)\n", s_who);
+          voix=@"Thomas-compact";
       } else if (s_who==2){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.Thomas-premium"];
-          printf("Voix : %f (com.apple.ttsbundle.Thomas-premium)\n", s_who);
+          voix=@"Thomas-premium";
       } else if (s_who==3){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.siri_male_fr-FR_compact"];
-          printf("Voix : %f (com.apple.ttsbundle.siri_male_fr-FR_compact)\n", s_who);
+          voix=@"Siri_male_compact";
       } else if (s_who==4){
           utterance.voice = [AVSpeechSynthesisVoice voiceWithIdentifier:@"com.apple.ttsbundle.siri_female_fr-FR_compact"];
-          printf("Voix : %f (com.apple.ttsbundle.siri_female_fr-FR_compact)\n", s_who);
+          voix=@"Siri_female_compact";
       }
-  } else utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"fr-FR"];
+  } else {
+      utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"fr-FR"];
+      voix=@"défaut fr-FR";
+  }
 
   [synth speakUtterance:utterance];
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, 5.0, FALSE);
-  printf("Rate = %f; Volume = %f; Pitch = %f;\n",s_rate,s_volume,s_pitch);
+    printf("Rate = %f; Volume = %f; Pitch = %f; Voix = %s; String = %s\n",s_rate,s_volume,s_pitch,voix.UTF8String,string.UTF8String);
   [synth release];
   [pool drain];
 }
