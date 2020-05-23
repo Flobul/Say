@@ -60,9 +60,9 @@ int main(int argc,char** argv) {
         return 1;
     }
 
-    if(optind>argc && isatty(fileno(stdin))){
+    if(optind>=argc && isatty(fileno(stdin))){
         fprintf(stderr,USAGE_MSG,argv[0]);
-    return 1;
+        return 1;
     }
     NSAutoreleasePool* pool=[[NSAutoreleasePool alloc] init];
     AVAudioRecorder* recorder;
