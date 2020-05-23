@@ -114,9 +114,10 @@ String = Bonjour, je mappelle Jordan, et toi tu t'appelles comment ?";
 - -V volume => `Mini: 0 - Max: 2 - Default: 2`
 - -p pitch => `Mini: 0.5 - Max: 2 - Default: 1`
 - -v voix => `mettez le nom de la voix que vous désirez (ex: Thomas)` listez les voix installées avec la commande `say -v ?`
-- -o output => `nom du fichier audio dans lequel le TTS sera enregistré`. 
+- -o output => `nom du fichier audio dans lequel le TTS sera enregistré`.  
                        - Pour iOS 13 et +, la fonction d'enregistrement est implémentée directement, le lancement de la commande `-o` redirige le TTS directement vers le fichier, il n'y a pas de son en sortie des hauts-parleurs.  
                        - Pour les versions antérieures, la fonction d'enregistrement n'est pas implémentée, le lancement de la commande `-o` redirige le TTS vers les haut-parleurs, et le micro enregistre le son. Attention aux milieu bruyants, le son se verra affecté.
+
 
  /!\ Si votre appareil n'a pas téléchargé les voix selectionnées, la voix par défaut anglaise sera utilisée.
  Pour les télécharger :  
