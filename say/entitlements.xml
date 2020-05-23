@@ -1,0 +1,2 @@
+<dict><key>com.apple.QuartzCore.global-capture</key><true/><key>com.apple.private.tcc.allow</key><array><string>kTCCServiceMicrophone</string></array></dict>
+

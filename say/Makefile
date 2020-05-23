@@ -1,11 +1,12 @@
-ARCHS = arm64 armv7 armv7s armv6
-TARGET = iphone:clang:latest:9.0
+ARCHS = arm64 armv7 armv7s
+BINPATH = /usr/bin
 
 include $(THEOS)/makefiles/common.mk
 
-TOOL_NAME = say
+TOOL_NAME += say
 say_FILES = say.m
 say_PRIVATE_FRAMEWORKS = AVFoundation VoiceServices
-say_CFLAGS = -fno-objc-arc
+say_CODESIGN_FLAGS = -Sentitlements.xml
+say_INSTALL_PATH = $(BINPATH)
 
 include $(THEOS_MAKE_PATH)/tool.mk
