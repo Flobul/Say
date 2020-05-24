@@ -1,6 +1,6 @@
 Package: com.flobul.say
 Name: uitools
-Version: 0.2
+Version: 0.2.1
 Architecture: iphoneos-arm
 Description: Command line tools to TTS with iOS
 Author: Flobul

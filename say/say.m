@@ -42,14 +42,10 @@ int main(int argc,char** argv) {
                     if (strcmp(optarg, "?")==0) {
                         for (AVSpeechSynthesisVoice *voice in allVoices) {
                             NSString *Name = [voice.name stringByReplacingOccurrencesOfString:@" " withString:@""];
+                            NSString *Language = [voice.language stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
                             NSUInteger Prems = [Name length];
-                            if(Prems<7){
-                            printf("%s\t\t\t%s\t# %s\n", [Name UTF8String], [voice.language UTF8String], [voice.identifier UTF8String]);
-                            }if(Prems>7 && Prems<15){
-                            printf("%s\t\t%s\t# %s\n", [Name UTF8String], [voice.language UTF8String], [voice.identifier UTF8String]);
-                            }if(Prems>15){
-                            printf("%s\t%s\t# %s\n", [Name UTF8String], [voice.language UTF8String], [voice.identifier UTF8String]);
-                            }
+                            NSUInteger n=20-Prems;
+                            printf("%s %*c %s\t# %s\n", [Name UTF8String], (int)n, ' ', [Language UTF8String], [voice.identifier UTF8String]);
                         }
                         return 1;
                     }
@@ -171,4 +167,4 @@ int main(int argc,char** argv) {
     [synth release];
     [pool drain];
 }
-
+ 
