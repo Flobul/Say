@@ -1,5 +1,5 @@
 Package: com.flobul.say
-Name: uitools
+Name: say
 Version: 0.2.1
 Architecture: iphoneos-arm
 Description: Command line tools to TTS with iOS
